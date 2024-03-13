@@ -16,7 +16,7 @@ class Solution {
                 }
             } else if (currentHealth == health) {
                 consecutiveSuccess++;
-                
+
                 if (consecutiveSuccess == bandage[0]) {
                     consecutiveSuccess = 0;
                 }
@@ -24,20 +24,11 @@ class Solution {
             } else if (health > currentHealth) { // 현재 체력이 최대 체력보다 낮을 때
                 consecutiveSuccess++;
 
-                if (currentHealth + bandage[1] > health) { // 추가 회복량이 최대 체력보다 크면 현재 체력을 최대 체력으로
-                    currentHealth = health;
-                } else {
-                    currentHealth += bandage[1]; // 추가체력회복
-                }
+                currentHealth = Math.min(health, currentHealth + bandage[1]);
 
                 if (consecutiveSuccess == bandage[0]) { // 시전시간 다 채웠을 시
                     consecutiveSuccess = 0;
-
-                    if (currentHealth + bandage[2] > health) { // 추가 회복량이 최대 체력보다 크면 현재 체력을 최대 체력으로
-                        currentHealth = health;
-                    } else {
-                        currentHealth += bandage[2]; // 추가체력회복
-                    }
+                    currentHealth = Math.min(health, currentHealth + bandage[2]);
                 }
             }
         }
