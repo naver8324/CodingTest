@@ -13,9 +13,9 @@ class Solution {
                 sum -= sequence[startIndex];
                 startIndex++;
             }
-            if (sum == k && (endIndex - startIndex) + 1 < minLength) {
+            if (sum == k && (endIndex - startIndex) < minLength) {
                 answer = new int[]{startIndex, endIndex};
-                minLength = (endIndex - startIndex) + 1;
+                minLength = (endIndex - startIndex);
             }
         }
         return answer;
