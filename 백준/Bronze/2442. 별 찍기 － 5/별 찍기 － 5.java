@@ -9,19 +9,9 @@ public class Main {
         for (int i=0; i<line; i++){
             int starCount = (i*2) + 1;
             int blankCount = line - (i+1);
-            
-            while(blankCount != 0){
-                System.out.print(" ");
-                blankCount--;
-            }
 
-            while (starCount != 0) {
-                System.out.print("*");
-                starCount--;
-            }
-
-            System.out.println();
+            System.out.println(" ".repeat(blankCount)+"*".repeat(starCount));
         }
-        
+
     }
 }
