@@ -1,18 +1,19 @@
+import java.io.*;
 import java.util.*;
 
 public class Main {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int N = sc.nextInt();
-        int M = sc.nextInt();
+    public static void main(String[] args) throws IOException {
+        BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+        int N = Integer.parseInt(bf.readLine());
+        int M = Integer.parseInt(bf.readLine());
         int[] arr = new int[N];
         int start_index = 0;
         int end_index = N - 1;
         int count = 0;
 
-
+        StringTokenizer st = new StringTokenizer(bf.readLine());
         for (int i = 0; i < arr.length; i++) {
-            arr[i] = sc.nextInt();
+            arr[i] = Integer.parseInt(st.nextToken());
         }
 
         Arrays.sort(arr);
@@ -30,6 +31,6 @@ public class Main {
         }
 
         System.out.println(count);
-        sc.close();
+        bf.close();
     }
 }
