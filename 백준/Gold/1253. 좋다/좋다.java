@@ -23,13 +23,13 @@ public class Main {
 
             while (start_index < end_index) {
                 if (arr[start_index] + arr[end_index] == M) {
-                    if(start_index != i && end_index != i) {
-                        count++;
-                        break;
-                    }else if(start_index == i) {
+                    if(start_index == i) {
                         start_index++;
                     }else if(end_index == i) {
                         end_index--;
+                    }else{
+                        count++;
+                        break;
                     }
                 } else if (arr[start_index] + arr[end_index] > M) {
                     end_index--;
