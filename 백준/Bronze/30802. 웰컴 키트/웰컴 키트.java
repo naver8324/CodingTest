@@ -18,16 +18,8 @@ public class Main{
         int P = Integer.parseInt(st.nextToken());
         int Tcount = 0;
 
-        for(int i = 0; i < 6; i++){
-            int temp = T;
-            if (sizeCount[i] == 0) {
-                continue;
-            }
-            while(sizeCount[i] > temp){
-                temp += T;
-                Tcount++;
-            }
-            Tcount++;
+        for (int i = 0; i < 6; i++) {
+            Tcount += (sizeCount[i] + T - 1) / T; // 올림 처리
         }
 
         System.out.println(Tcount);
