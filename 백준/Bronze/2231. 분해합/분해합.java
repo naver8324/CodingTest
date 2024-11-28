@@ -6,7 +6,7 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         int N = sc.nextInt();
 
-        for (int i = 1; i < N; i++) {
+        for (int i = Math.max(1, N - 9 * String.valueOf(N).length()); i < N; i++) {
             int temp = i;
             int construtor = temp;
 
