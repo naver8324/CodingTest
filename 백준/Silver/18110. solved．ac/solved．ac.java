@@ -14,14 +14,14 @@ public class Main {
 
         Arrays.sort(level);
 
-        double average = 0;
+        double sum = 0;
 
         for (int i = excludedCount; i < n-excludedCount; i++) {
-            average += level[i];
+            sum += level[i];
         }
 
-        System.out.println(Math.round(average/(n - excludedCount * 2)));
-        
+        System.out.println(Math.round(sum/(n - excludedCount * 2)));
+
         br.close();
     }
 }
