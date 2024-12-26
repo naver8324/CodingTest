@@ -31,6 +31,7 @@ public class Main {
             }
         }
 
-        System.out.print(sb);
+        System.out.print(sb.toString());
+        br.close();
     }
 }
