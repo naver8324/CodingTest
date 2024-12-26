@@ -1,18 +1,21 @@
-import java.io.*;
 import java.util.*;
+import java.io.*;
 
-public class Main {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        HashSet<Integer> remainders = new HashSet<>();
+class Main {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-        for (int i = 0; i < 10; i++) {
-            int number = sc.nextInt();
-            int remainder = number % 42;
-            remainders.add(remainder);
-        }
+    	Set<Integer> remainderCount = new HashSet<>();
+    	for(int i=0; i<10; i++){
+    		int n = Integer.parseInt(br.readLine());	
+    		if(n < 42){
+    			remainderCount.add(n);
+    		}else{
+    			remainderCount.add(n%42);
+    		}
+    	}
 
-        System.out.println(remainders.size());
-        sc.close();
+    	System.out.print(remainderCount.size());
+        br.close();
     }
 }
