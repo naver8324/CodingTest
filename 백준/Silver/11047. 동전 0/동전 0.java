@@ -14,12 +14,10 @@ public class Main {
             coin[i] = Integer.parseInt(br.readLine());
         }
 
-        for (int i = N-1; i >= 0; i--) {
+        for (int i = N - 1; i >= 0; i--) {
             if (coin[i] <= K) {
-                while (coin[i] <= K) {
-                    K -= coin[i];
-                    minCoinCount++;
-                }
+                minCoinCount += K / coin[i];
+                K %= coin[i];
             }
         }
 
