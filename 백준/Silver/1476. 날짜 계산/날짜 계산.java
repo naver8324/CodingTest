@@ -10,25 +10,10 @@ public class Main {
         int S = Integer.parseInt(st.nextToken());
         int M = Integer.parseInt(st.nextToken());
 
-        int ENow = 1, SNow = 1, MNow = 1;
-        int year = 1;
+        int year = E;
 
-        while (true) {
-            if (ENow == 16) {
-                ENow = 1;
-            }
-            if (SNow == 29) {
-                SNow = 1;
-            }
-            if (MNow == 20) {
-                MNow = 1;
-            }
-
-            if (E == ENow && S == SNow && M == MNow) {
-                break;
-            }
-
-            year++; ENow++; SNow++; MNow++;
+        while ((year - S) % 28 != 0 || (year - M) % 19 != 0) {
+            year += 15;
         }
 
         System.out.println(year);
