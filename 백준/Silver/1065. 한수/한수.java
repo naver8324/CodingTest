@@ -6,30 +6,31 @@ public class Main {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int N = Integer.parseInt(br.readLine());
 
-        int result = 0;
+        if (N < 100) {
+            System.out.println(N);
+            return;
+        }
 
-        for (int i = 1; i <= N; i++) {
-            if (i < 100) {
-                result++;
-            } else {
-                int temp = i;
-                int n1 = temp % 10;
-                temp /= 10;
-                int n2 = temp % 10;
-                temp /= 10;
-                int n3 = temp % 10;
+        int count = 99;
 
-                if (n2 - n1 == n3 - n2) {
-                    result++;
-                }
+        for (int i = 111; i <= N; i++) {
+            int temp = i;
+            int n1 = temp % 10;
+            temp /= 10;
+            int n2 = temp % 10;
+            temp /= 10;
+            int n3 = temp % 10;
+
+            if (n2 - n1 == n3 - n2) {
+                count++;
             }
         }
 
         if (N == 1000) {
-            result--;
+            count--;
         }
 
-        System.out.println(result);
+        System.out.println(count);
         br.close();
     }
 }
