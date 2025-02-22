@@ -23,12 +23,11 @@ public class Main {
         }
 
         Set<Integer> tempA = new HashSet<>(setA);
-        Set<Integer> tempB = new HashSet<>(setB);
 
         tempA.removeAll(setB);
-        tempB.removeAll(setA);
+        setB.removeAll(setA);
 
-        System.out.println(tempA.size() + tempB.size());
+        System.out.println(tempA.size() + setB.size());
         br.close();
     }
 }
