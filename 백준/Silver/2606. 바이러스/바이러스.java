@@ -4,6 +4,7 @@ import java.util.*;
 public class Main {
     static ArrayList<Integer>[] A;
     static boolean[] visited;
+    static int virusCount;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -29,13 +30,6 @@ public class Main {
 
         DFS(1);
 
-        int virusCount = 0;
-        for (boolean i : visited) {
-            if (i) {
-                virusCount++;
-            }
-        }
-
         System.out.println(--virusCount);
     }
 
@@ -43,6 +37,7 @@ public class Main {
         if (visited[v]) {
             return;
         }
+        virusCount++;
 
         visited[v] = true;
         for (int i : A[v]) {
