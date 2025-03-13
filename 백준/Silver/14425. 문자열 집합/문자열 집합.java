@@ -8,7 +8,7 @@ public class Main {
         int N = Integer.parseInt(st.nextToken());
         int M = Integer.parseInt(st.nextToken());
 
-        List<String> S = new LinkedList<>();
+        Set<String> S = new HashSet<>();
 
         for (int i = 0; i < N; i++) {
             S.add(br.readLine());
