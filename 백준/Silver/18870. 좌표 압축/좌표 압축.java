@@ -14,13 +14,21 @@ public class Main {
         }
 
         int[] sortedX = X.clone();
-        sortedX = Arrays.stream(sortedX).distinct().toArray();
         Arrays.sort(sortedX);
+
+        Map<Integer, Integer> map = new HashMap<>();
+        int index = 0;
+
+        for (int n : sortedX) {
+            if (!map.containsKey(n)) {
+                map.put(n, index++);
+            }
+        }
 
         StringBuilder sb = new StringBuilder();
 
-        for (int i : X) {
-            sb.append(Arrays.binarySearch(sortedX, i)).append(" ");
+        for (int n : X) {
+            sb.append(map.get(n)).append(" ");
         }
 
         System.out.println(sb.toString());
