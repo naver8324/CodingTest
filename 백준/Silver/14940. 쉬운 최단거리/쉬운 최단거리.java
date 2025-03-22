@@ -28,8 +28,9 @@ public class Main {
         for (int x = 0; x < n; x++) {
             st = new StringTokenizer(br.readLine());
             for (int y = 0; y < m; y++) {
-                map[x][y] = Integer.parseInt(st.nextToken());
-                if (map[x][y] == 2) {
+                int a = Integer.parseInt(st.nextToken());
+                map[x][y] = a;
+                if (a == 2) {
                     startX = x;
                     startY = y;
                 }
