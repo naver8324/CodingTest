@@ -1,37 +1,36 @@
 import java.util.*;
+import java.io.*;
 
 public class Main {
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        String board = scanner.next();
-        scanner.close();
-        
-        String result = solvePolyomino(board);
-        System.out.println(result);
-    }
-    
-    public static String solvePolyomino(String board) {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        String input = br.readLine();
+
+        String[] board = input.split("(?<=\\.)|(?=\\.)");
+
         StringBuilder sb = new StringBuilder();
-        int i = 0;
-        
-        while (i < board.length()) {
-            if (board.charAt(i) == 'X') {
-                int count = 0;
-                while (i < board.length() && board.charAt(i) == 'X') {
-                    count++;
-                    i++;
-                }
-                
-                if (count % 2 != 0) return "-1";
-                
-                sb.append("AAAA".repeat(count / 4));
-                if (count % 4 == 2) sb.append("BB");
-            } else {
+
+        for (String b : board) {
+            if (b.equals(".")) {
                 sb.append(".");
-                i++;
+                continue;
+            }
+
+            int n = b.length();
+            if (n % 2 != 0) {
+                System.out.println(-1);
+                return;
+            }
+
+            while (n >= 4) {
+                sb.append("AAAA");
+                n -= 4;
+            }
+            if (n == 2) {
+                sb.append("BB");
             }
         }
-        
-        return sb.toString();
+
+        System.out.println(sb.toString());
     }
 }
