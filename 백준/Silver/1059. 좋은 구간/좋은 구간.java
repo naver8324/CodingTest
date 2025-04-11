@@ -1,42 +1,39 @@
 import java.util.*;
+import java.io.*;
 
 public class Main {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-
-        int L = sc.nextInt();
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int L = Integer.parseInt(br.readLine());
+        StringTokenizer st = new StringTokenizer(br.readLine());
         int[] S = new int[L];
-        for (int i = 0; i < L; i++) {
-            S[i] = sc.nextInt();
-        }
-        int n = sc.nextInt();
 
+        for (int i = 0; i < L; i++) {
+            S[i] = Integer.parseInt(st.nextToken());
+        }
         Arrays.sort(S);
 
-        for (int num : S) {
-            if (num == n) {
+        int n = Integer.parseInt(br.readLine());
+
+        int prev = 0;
+        int next = 0;
+
+        for (int s : S) {
+            if (s < n) {
+                prev = s;
+            } else if (s > n) {
+                next = s;
+                break;
+            } else {
                 System.out.println(0);
                 return;
             }
         }
 
-        int lower = 0;
-        int upper = 1001;
-
-        for (int num : S) {
-            if (num < n) {
-                lower = Math.max(lower, num);
-            } else if (num > n && num < upper) {
-                upper = num;
-            }
-        }
-
         int count = 0;
-        for (int a = lower + 1; a <= n; a++) {
-            for (int b = n; b < upper; b++) {
-                if (a < b) {
-                    count++;
-                }
+        for (int a = prev + 1; a <= n; a++) {
+            for (int b = n; b < next; b++) {
+                if (a < b) count++;
             }
         }
 
