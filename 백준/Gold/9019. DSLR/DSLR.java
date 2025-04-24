@@ -13,59 +13,70 @@ public class Main {
             int A = Integer.parseInt(st.nextToken());
             int B = Integer.parseInt(st.nextToken());
 
-            BFS(A, B);
+            bfs(A, B);
         }
 
         System.out.print(sb.toString());
     }
 
-    private static void BFS(int A, int B) {
+    private static void bfs(int A, int B) {
         boolean[] visited = new boolean[10000];
         Queue<Pair> queue = new LinkedList<>();
-        queue.offer(new Pair(A, ""));
+
+        queue.offer(new Pair(A, null, ' '));
         visited[A] = true;
+
+        Pair end = null;
 
         while (!queue.isEmpty()) {
             Pair p = queue.poll();
             int num = p.num;
-            String command = p.command;
 
             if (num == B) {
-                sb.append(command).append("\n");
-                return;
+                end = p;
+                break;
             }
+
             int D = (num * 2) % 10000;
             int S = num == 0 ? 9999 : num - 1;
             int L = (num * 10 + num / 1000) % 10000;
             int R = num / 10 + num % 10 * 1000;
 
-            if (!visited[D]){
+            if (!visited[D]) {
                 visited[D] = true;
-                queue.offer(new Pair(D, command + "D"));
+                queue.offer(new Pair(D, p, 'D'));
             }
             if (!visited[S]) {
                 visited[S] = true;
-                queue.offer(new Pair(S, command + "S"));
+                queue.offer(new Pair(S, p, 'S'));
             }
             if (!visited[L]) {
                 visited[L] = true;
-                queue.offer(new Pair(L, command + "L"));
+                queue.offer(new Pair(L, p, 'L'));
             }
             if (!visited[R]) {
                 visited[R] = true;
-                queue.offer(new Pair(R, command + "R"));
+                queue.offer(new Pair(R, p, 'R'));
             }
         }
+
+        StringBuilder path = new StringBuilder();
+        while (end != null && end.prev != null) {
+            path.append(end.command);
+            end = end.prev;
+        }
+        sb.append(path.reverse().toString()).append("\n");
     }
 }
 
-
 class Pair {
     int num;
-    String command;
+    Pair prev;
+    char command;
 
-    Pair(int A, String S) {
-        this.num = A;
-        this.command = S;
+    Pair(int num, Pair prev, char command) {
+        this.num = num;
+        this.prev = prev;
+        this.command = command;
     }
 }
