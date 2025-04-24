@@ -1,67 +1,80 @@
 import java.util.*;
+import java.io.*;
 
 public class Main {
-    static int[] board = new int[101];
+    static int[] board;
     static boolean[] visited = new boolean[101];
 
-    static class Node {
-        int position;
-        int moves;
 
-        Node(int position, int moves) {
-            this.position = position;
-            this.moves = moves;
-        }
-    }
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        int N = Integer.parseInt(st.nextToken());
+        int M = Integer.parseInt(st.nextToken());
 
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int N = sc.nextInt();
-        int M = sc.nextInt();
+        board = new int[101];
 
         for (int i = 1; i <= 100; i++) {
             board[i] = i;
         }
 
-        for (int i = 0; i < N; i++) {
-            int from = sc.nextInt();
-            int to = sc.nextInt();
+        while (N-- > 0) {
+            st = new StringTokenizer(br.readLine());
+            int from = Integer.parseInt(st.nextToken());
+            int to = Integer.parseInt(st.nextToken());
             board[from] = to;
         }
 
-        for (int i = 0; i < M; i++) {
-            int from = sc.nextInt();
-            int to = sc.nextInt();
+        while (M-- > 0) {
+            st = new StringTokenizer(br.readLine());
+            int from = Integer.parseInt(st.nextToken());
+            int to = Integer.parseInt(st.nextToken());
             board[from] = to;
         }
 
         System.out.println(bfs());
+
+
     }
 
-    public static int bfs() {
+    private static int bfs() {
         Queue<Node> queue = new LinkedList<>();
-        queue.add(new Node(1, 0));
+        queue.offer(new Node(1, 0));
         visited[1] = true;
 
         while (!queue.isEmpty()) {
             Node current = queue.poll();
 
             if (current.position == 100) {
-                return current.moves;
+                return current.moveCount;
             }
 
             for (int dice = 1; dice <= 6; dice++) {
-                int nextPos = current.position + dice;
-                if (nextPos > 100) continue;
+                int next = current.position + dice;
 
-                int finalPos = board[nextPos];
-                if (!visited[finalPos]) {
-                    visited[finalPos] = true;
-                    queue.add(new Node(finalPos, current.moves + 1));
+                if (next > 100) {
+                    continue;
+                }
+
+                int nextPosition = board[next];
+
+                if (!visited[nextPosition]) {
+                    visited[nextPosition] = true;
+                    queue.offer(new Node(nextPosition, current.moveCount + 1));
                 }
             }
         }
 
         return -1;
+    }
+}
+
+class Node{
+    int position;
+    int moveCount;
+
+    Node(int position, int moveCount) {
+        this.position = position;
+        this.moveCount = moveCount;
     }
 }
