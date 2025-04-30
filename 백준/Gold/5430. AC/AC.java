@@ -1,38 +1,38 @@
-import java.io.*;
 import java.util.*;
+import java.io.*;
 
 public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringBuilder output = new StringBuilder();
+        int N = Integer.parseInt(br.readLine());
+        StringBuilder sb = new StringBuilder();
 
-        int T = Integer.parseInt(br.readLine());
-
-        while (T-- > 0) {
-            String commands = br.readLine();
+        for (int i = 0; i < N; i++) {
+            char[] command = br.readLine().toCharArray();
             int n = Integer.parseInt(br.readLine());
             String input = br.readLine();
 
-            Deque<Integer> deque = new ArrayDeque<>();
-            boolean isReversed = false;
+            Deque<Integer> deque = new LinkedList<>();
+            boolean isReverse = false;
             boolean isError = false;
 
             if (n > 0) {
                 String[] nums = input.substring(1, input.length() - 1).split(",");
                 for (String num : nums) {
-                    deque.add(Integer.parseInt(num));
+                    deque.offer(Integer.parseInt(num));
                 }
             }
 
-            for (char cmd : commands.toCharArray()) {
-                if (cmd == 'R') {
-                    isReversed = !isReversed;
-                } else if (cmd == 'D') {
+            for (char c : command) {
+                if (c == 'R') {
+                    isReverse = !isReverse;
+                } else {
                     if (deque.isEmpty()) {
+
                         isError = true;
                         break;
                     }
-                    if (isReversed) {
+                    if (isReverse) {
                         deque.pollLast();
                     } else {
                         deque.pollFirst();
@@ -41,17 +41,20 @@ public class Main {
             }
 
             if (isError) {
-                output.append("error\n");
+                sb.append("error").append("\n");
             } else {
-                output.append("[");
+                sb.append("[");
                 while (!deque.isEmpty()) {
-                    output.append(isReversed ? deque.pollLast() : deque.pollFirst());
-                    if (!deque.isEmpty()) output.append(",");
+                    sb.append(isReverse ? deque.pollLast() : deque.pollFirst());
+
+                    if (!deque.isEmpty()) {
+                        sb.append(",");
+                    }
                 }
-                output.append("]\n");
+                sb.append("]").append("\n");
             }
         }
 
-        System.out.print(output.toString());
+        System.out.print(sb.toString());
     }
 }
