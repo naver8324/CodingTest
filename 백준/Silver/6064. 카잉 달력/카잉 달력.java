@@ -1,40 +1,49 @@
-import java.util.Scanner;
+import java.util.*;
+import java.io.*;
 
 public class Main {
-    public static int findYear(int M, int N, int x, int y) {
-        int maxYear = lcm(M, N);
-        for (int i = 0; i <= maxYear / M; i++) {
-            int year = i * M + x;
-            if ((year - 1) % N + 1 == y) {
-                return year;
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int T = Integer.parseInt(br.readLine());
+        StringBuilder sb = new StringBuilder();
+
+        while (T-- > 0) {
+            StringTokenizer st = new StringTokenizer(br.readLine());
+            int M = Integer.parseInt(st.nextToken());
+            int N = Integer.parseInt(st.nextToken());
+            int x = Integer.parseInt(st.nextToken());
+            int y = Integer.parseInt(st.nextToken());
+
+            sb.append(findYear(M, N, x, y)).append("\n");
+        }
+
+        System.out.print(sb.toString());
+    }
+
+    private static int findYear(int M, int N, int x, int y) {
+        int lcm = lcm(M, N);
+
+        for (int k = x; k <= lcm; k += M) {
+            if ((k - 1) % N + 1 == y) {
+                return k;
             }
         }
+
         return -1;
     }
 
-    public static int lcm(int a, int b) {
+    private static int lcm(int a, int b) {
         return a * b / gcd(a, b);
     }
 
-    public static int gcd(int a, int b) {
+    private static int gcd(int a, int b) {
         while (b != 0) {
-            int tmp = a % b;
+            int temp = a % b;
             a = b;
-            b = tmp;
+            b = temp;
         }
+
         return a;
     }
 
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int T = sc.nextInt();
-        while (T-- > 0) {
-            int M = sc.nextInt();
-            int N = sc.nextInt();
-            int x = sc.nextInt();
-            int y = sc.nextInt();
-
-            System.out.println(findYear(M, N, x, y));
-        }
-    }
 }
