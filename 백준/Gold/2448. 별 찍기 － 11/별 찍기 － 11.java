@@ -1,11 +1,12 @@
 import java.io.*;
-import java.util.Arrays;
+import java.util.*;
 
 public class Main {
     static char[][] star;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
         int N = Integer.parseInt(br.readLine());
 
         star = new char[N][N * 2 - 1];
@@ -16,16 +17,13 @@ public class Main {
 
         draw(N, 0, N - 1);
 
-        StringBuilder sb = new StringBuilder();
-        
-        for (char[] line : star) {
-            for (char c : line) {
-                sb.append(c);
-            }
-            sb.append("\n");
+        for (int i = 0; i < N; i++) {
+            bw.write(star[i]);
+            bw.newLine();
         }
 
-        System.out.println(sb.toString());
+        bw.flush();
+        bw.close();
     }
 
     private static void draw(int n, int x, int y) {
