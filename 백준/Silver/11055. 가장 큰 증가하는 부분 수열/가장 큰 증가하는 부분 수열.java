@@ -1,29 +1,32 @@
-import java.util.Scanner;
+import java.io.*;
+import java.util.*;
 
 public class Main {
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        int N = Integer.parseInt(st.nextToken());
+        int[] arr = new int[N];
+        int[] dp = new int[N];
 
-        int n = scanner.nextInt();
-        int[] a = new int[n];
-        for (int i = 0; i < n; i++) {
-            a[i] = scanner.nextInt();
+        st = new StringTokenizer(br.readLine());
+        for (int i = 0; i < N; i++) {
+            arr[i] = Integer.parseInt(st.nextToken());
+            dp[i] = arr[i];
         }
 
-        int[] dp = new int[n];
-
-        int maxSum = 0;
-
-        for (int i = 0; i < n; i++) {
-            dp[i] = a[i];
+        int max = 0;
+        for (int i = 0; i < N; i++) {
             for (int j = 0; j < i; j++) {
-                if (a[j] < a[i]) {
-                    dp[i] = Math.max(dp[i], dp[j] + a[i]);
+                if (arr[j] < arr[i]) {
+                    dp[i] = Math.max(dp[i], dp[j] + arr[i]);
                 }
             }
-            maxSum = Math.max(maxSum, dp[i]);
+            if (max < dp[i]) {
+                max = dp[i];
+            }
         }
 
-        System.out.println(maxSum);
+        System.out.println(max);
     }
 }
