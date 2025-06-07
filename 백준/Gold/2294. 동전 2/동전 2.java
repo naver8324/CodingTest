@@ -1,18 +1,20 @@
+import java.io.*;
 import java.util.*;
 
 public class Main {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        
-        int n = sc.nextInt();
-        int k = sc.nextInt();
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        int n = Integer.parseInt(st.nextToken());
+        int k = Integer.parseInt(st.nextToken());
+
         int[] coins = new int[n];
-        
+        int[] dp = new int[k + 1];
+
         for (int i = 0; i < n; i++) {
-            coins[i] = sc.nextInt();
+            coins[i] = Integer.parseInt(br.readLine());
         }
 
-        int[] dp = new int[k + 1];
         Arrays.fill(dp, 10001);
         dp[0] = 0;
 
