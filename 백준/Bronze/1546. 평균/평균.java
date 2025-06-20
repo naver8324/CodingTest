@@ -7,21 +7,18 @@ public class Main {
         int N = Integer.parseInt(br.readLine());
         StringTokenizer st = new StringTokenizer(br.readLine());
 
-        double[] subjects = new double[N];
         double average = 0;
         double highest = 0;
 
         for (int i = 0; i < N; i++) {
-            subjects[i] = Double.parseDouble(st.nextToken());
-            if (subjects[i] > highest) {
-                highest = subjects[i];
+            double n = Double.parseDouble(st.nextToken());
+            average += n;
+
+            if (n > highest) {
+                highest = n;
             }
         }
 
-        for (int i = 0; i < N; i++) {
-            average += subjects[i] / highest * 100;
-        }
-
-        System.out.println(average/N);
+        System.out.println(average * 100 / N / highest);
     }
 }
