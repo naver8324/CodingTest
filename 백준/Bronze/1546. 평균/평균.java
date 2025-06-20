@@ -1,19 +1,27 @@
+import java.io.*;
 import java.util.*;
 
 public class Main {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int examCount = sc.nextInt();
-        int[] examScores = new int[examCount];
-        int sum = 0;
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int N = Integer.parseInt(br.readLine());
+        StringTokenizer st = new StringTokenizer(br.readLine());
 
-        for (int i = 0; i < examCount; i++) {
-            examScores[i] = sc.nextInt();
-            sum += examScores[i];
+        double[] subjects = new double[N];
+        double average = 0;
+        double highest = 0;
+
+        for (int i = 0; i < N; i++) {
+            subjects[i] = Double.parseDouble(st.nextToken());
+            if (subjects[i] > highest) {
+                highest = subjects[i];
+            }
         }
 
-        int max = Arrays.stream(examScores).max().orElseThrow();
+        for (int i = 0; i < N; i++) {
+            average += subjects[i] / highest * 100;
+        }
 
-        System.out.println(sum * 100.0 / max / examCount);
+        System.out.println(average/N);
     }
 }
