@@ -7,26 +7,41 @@ public class Main {
         StringTokenizer st = new StringTokenizer(br.readLine());
         int N = Integer.parseInt(st.nextToken());
         int M = Integer.parseInt(st.nextToken());
+
         int[][] arr = new int[N + 1][N + 1];
+        int[][] prefixSum = new int[N + 1][N + 1];
 
         for (int i = 1; i <= N; i++) {
             st = new StringTokenizer(br.readLine());
             for (int j = 1; j <= N; j++) {
-                arr[i][j] = Integer.parseInt(st.nextToken()) + arr[i - 1][j] + arr[i][j - 1] - arr[i - 1][j - 1];
+                arr[i][j] = Integer.parseInt(st.nextToken());
+            }
+        }
+
+        prefixSum[1][1] = arr[1][1];
+        for (int i = 2; i <= N; i++) {
+                prefixSum[i][1] = prefixSum[i-1][1] + arr[i][1];
+                prefixSum[1][i] = prefixSum[1][i-1] + arr[1][i];
+        }
+
+        for (int i = 2; i <= N; i++) {
+            for (int j = 2; j <= N; j++) {
+                prefixSum[i][j] = arr[i][j] + prefixSum[i - 1][j] + prefixSum[i][j - 1] - prefixSum[i - 1][j - 1];
             }
         }
 
         StringBuilder sb = new StringBuilder();
-        for (int x = 0; x < M; x++) {
+        for (int n = 0; n < M; n++) {
             st = new StringTokenizer(br.readLine());
-            int X1 = Integer.parseInt(st.nextToken());
-            int Y1 = Integer.parseInt(st.nextToken());
-            int X2 = Integer.parseInt(st.nextToken());
-            int Y2 = Integer.parseInt(st.nextToken());
+            int x1 = Integer.parseInt(st.nextToken());
+            int y1 = Integer.parseInt(st.nextToken());
+            int x2 = Integer.parseInt(st.nextToken());
+            int y2 = Integer.parseInt(st.nextToken());
 
-            int sum = arr[X2][Y2] - arr[X1 - 1][Y2] - arr[X2][Y1 - 1] + arr[X1 - 1][Y1 - 1];
-            sb.append(sum).append("\n");
+            sb.append(prefixSum[x2][y2] - prefixSum[x2][y1 - 1] - prefixSum[x1 - 1][y2] + prefixSum[x1 - 1][y1 - 1]);
+            sb.append("\n");
         }
-        System.out.print(sb);
+
+        System.out.print(sb.toString());
     }
 }
