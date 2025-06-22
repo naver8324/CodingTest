@@ -1,34 +1,30 @@
+import java.io.*;
 import java.util.*;
 
 public class Main {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int N = sc.nextInt();
-        int M = sc.nextInt();
-        long count = 0;
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        int N = Integer.parseInt(st.nextToken());
+        int M = Integer.parseInt(st.nextToken());
 
-        long[] prefixSum = new long[N];
-        long[] indexCount = new long[M];
+        int[] prefixSum = new int[N + 1];
+        long[] C = new long[M];
+        long result = 0;
 
-        prefixSum[0] = sc.nextInt();
-        for (int i = 1; i < prefixSum.length; i++) {
-            prefixSum[i] = sc.nextInt() + prefixSum[i - 1];
-        }
-
-        for (int i = 0; i < N; i++) {
-            int remainder = (int)(prefixSum[i] % M);
-            if (remainder == 0) {
-                count++;
+        st = new StringTokenizer(br.readLine());
+        for (int i = 1; i <= N; i++) {
+            prefixSum[i] = (Integer.parseInt(st.nextToken()) + prefixSum[i - 1]) % M;
+            if (prefixSum[i] == 0) {
+                result++;
             }
-            indexCount[remainder]++;
+            C[prefixSum[i]]++;
         }
 
         for (int i = 0; i < M; i++) {
-            if (indexCount[i] > 1) {
-                count += indexCount[i] * (indexCount[i] - 1) / 2;
-            }
+            result += C[i] * (C[i] - 1) / 2;
         }
 
-        System.out.println(count);
+        System.out.println(result);
     }
 }
