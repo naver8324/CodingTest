@@ -1,35 +1,34 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.*;
 
 public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int N = Integer.parseInt(br.readLine());
-        PriorityQueue<Integer> pq = new PriorityQueue<>((o1, o2) -> {
-            int first_abs = Math.abs(o1);
-            int second_abs = Math.abs(o2);
-            if(first_abs == second_abs) {
-                return o1 > o2 ? 1 : -1;
-            } else {
-                return first_abs - second_abs;
+
+        PriorityQueue<Integer> pq = new PriorityQueue<>((a, b) -> {
+            int absA = Math.abs(a);
+            int absB = Math.abs(b);
+
+            if (absA == absB) {
+                return a - b;
             }
+
+            return absA - absB;
         });
 
+        StringBuilder sb = new StringBuilder();
         for (int i = 0; i < N; i++) {
-            int x = Integer.parseInt(br.readLine());
-            if (x == 0) {
-                if (pq.isEmpty()) {
-                    System.out.println(0);
-                }else{
-                    System.out.println(pq.poll());
-                }
-            }else{
-                pq.add(x);
+            int n = Integer.parseInt(br.readLine());
+
+            if (n == 0) {
+                int a = pq.isEmpty() ? 0 : pq.poll();
+                sb.append(a).append("\n");
+            } else {
+                pq.offer(n);
             }
         }
 
-        br.close();
+        System.out.println(sb.toString());
     }
 }
