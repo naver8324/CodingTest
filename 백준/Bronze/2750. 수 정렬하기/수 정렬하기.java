@@ -1,34 +1,32 @@
+import java.io.*;
 import java.util.*;
 
 public class Main {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int N = sc.nextInt();
-        int[] bubble = new int[N];
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int N = Integer.parseInt(br.readLine());
+        int[] arr = new int[N];
 
         for (int i = 0; i < N; i++) {
-            bubble[i] = sc.nextInt();
+            arr[i] = Integer.parseInt(br.readLine());
         }
 
-        for (int i = 0; i < N - 1; i++) {
-            boolean swapped = false;
-            for (int j = 0; j < N - i - 1; j++) {
-                if (bubble[j] > bubble[j + 1]) {
-                    int temp = bubble[j];
-                    bubble[j] = bubble[j + 1];
-                    bubble[j + 1] = temp;
-                    swapped = true;
+
+        for (int i = 1; i <= N; i++) {
+            for (int j = 0; j < N - i; j++) {
+                if (arr[j] > arr[j + 1]) {
+                    int temp = arr[j];
+                    arr[j] = arr[j + 1];
+                    arr[j + 1] = temp;
                 }
             }
-            if (!swapped) {
-                break;
-            }
         }
 
-        for (int i : bubble) {
-            System.out.println(i);
+        StringBuilder sb = new StringBuilder();
+        for (int n : arr) {
+            sb.append(n).append("\n");
         }
 
-        sc.close();
+        System.out.println(sb.toString());
     }
 }
