@@ -1,55 +1,44 @@
 import java.io.*;
 import java.util.*;
 
-public class Main {
+class Main{
     static int N;
-    static BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(System.out));
+    static StringBuilder sb = new StringBuilder();
 
-    public static void main(String[] args) throws IOException {
-        Scanner sc = new Scanner(System.in);
-        N = sc.nextInt();
-
+    public static void main(String[] args)throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        N = Integer.parseInt(st.nextToken());
 
         DFS(2, 1);
         DFS(3, 1);
         DFS(5, 1);
         DFS(7, 1);
 
-        writer.flush();
-
-        writer.close();
-        sc.close();
+        System.out.print(sb.toString());
     }
 
-    private static boolean isPrime(int prime) {
-        if (prime == 2) {
-            return true;
-        }
-
-        if (prime % 2 == 0) {
-            return false;
-        }
-
-        for (int i = 3; i * i <= prime; i += 2) {
-            if (prime % i == 0) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    private static void DFS(int n, int numDigits) throws IOException {
-        if (numDigits == N) {
-            if (isPrime(n)) {
-                writer.write(String.valueOf(n) + "\n");
-            }
+    private static void DFS(int n, int digitCount) {
+        if (!isPrime(n)) {
             return;
         }
 
-        for (int i = 1; i < 10; i++) {
-            if (isPrime(n * 10 + i)) {
-                DFS(n * 10 + i, numDigits + 1);
+        if (digitCount == N) {
+            sb.append(n).append("\n");
+        } else {
+            for (int i = 1; i <= 9; i += 2) {
+                DFS(n * 10 + i, digitCount + 1);
             }
         }
+    }
+
+    private static boolean isPrime(int n) {
+        for (int i = 2; i <= Math.sqrt(n); i++) {
+            if (n % i == 0) {
+                return false;
+            }
+        }
+
+        return true;
     }
 }
