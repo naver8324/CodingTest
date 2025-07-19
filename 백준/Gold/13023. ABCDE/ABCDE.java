@@ -1,20 +1,20 @@
-import java.util.*;
 import java.io.*;
+import java.util.*;
 
-public class Main {
-    static boolean[] visited;
+class Main{
     static ArrayList<Integer>[] A;
-    static boolean isFound = false;
+    static boolean[] visited;
+    static int check;
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args)throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
-
         int N = Integer.parseInt(st.nextToken());
         int M = Integer.parseInt(st.nextToken());
 
-        visited = new boolean[N];
         A = new ArrayList[N];
+        visited = new boolean[N];
+        check = 0;
 
         for (int i = 0; i < N; i++) {
             A[i] = new ArrayList<>();
@@ -30,30 +30,29 @@ public class Main {
         }
 
         for (int i = 0; i < N; i++) {
-            if (!isFound) {
-                DFS(i, 1);
+            if (check == 1) {
+                break;
             }
+            DFS(i, 1);
         }
 
-        System.out.println(isFound ? 1 : 0);
-
-        br.close();
+        System.out.print(check);
     }
 
-    private static void DFS(int n, int depth) {
-        if (depth == 5) {
-            isFound = true;
+    private static void DFS(int i, int depth) {
+        if (depth >= 5) {
+            check = 1;
             return;
         }
 
-        visited[n] = true;
+        visited[i] = true;
 
-        for (int i : A[n]) {
-            if (!visited[i]) {
-                DFS(i, depth + 1);
+        for (int n : A[i]) {
+            if (!visited[n]) {
+                DFS(n, depth + 1);
             }
         }
 
-        visited[n] = false;
+        visited[i] = false;
     }
 }
