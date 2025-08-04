@@ -1,33 +1,39 @@
-import java.util.Scanner;
+import java.io.*;
+import java.util.*;
 
-public class Main {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+class Main {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        int N = Integer.parseInt(st.nextToken());
+        int M = Integer.parseInt(st.nextToken());
 
-        int N = sc.nextInt(); // 바구니 개수
-        int M = sc.nextInt(); // 연산 횟수
+        int[] basket = new int[N];
 
-        int[] baskets = new int[N];
         for (int i = 0; i < N; i++) {
-            baskets[i] = i + 1; // 1부터 N까지 초기화
+            basket[i] = i + 1;
         }
 
-        for (int m = 0; m < M; m++) {
-            int i = sc.nextInt() - 1; // 인덱스는 0부터 시작하므로 -1
-            int j = sc.nextInt() - 1;
+        for (int n = 0; n < M; n++) {
+            st = new StringTokenizer(br.readLine());
+            int i = Integer.parseInt(st.nextToken()) - 1;
+            int j = Integer.parseInt(st.nextToken()) - 1;
 
-            // i부터 j까지 뒤집기
             while (i < j) {
-                int temp = baskets[i];
-                baskets[i] = baskets[j];
-                baskets[j] = temp;
+                int temp = basket[i];
+                basket[i] = basket[j];
+                basket[j] = temp;
+                
                 i++;
                 j--;
             }
         }
 
-        for (int num : baskets) {
-            System.out.print(num + " ");
+        StringBuilder sb = new StringBuilder();
+        for (int n : basket) {
+            sb.append(n).append(" ");
         }
+
+        System.out.println(sb.toString());
     }
 }
