@@ -1,26 +1,41 @@
+import java.io.*;
 import java.util.*;
 
-public class Main {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+class Main {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        int x1 = Integer.parseInt(st.nextToken());
+        int y1 = Integer.parseInt(st.nextToken());
 
-        int[] x = new int[3];
-        int[] y = new int[3];
+        st = new StringTokenizer(br.readLine());
+        int x2 = Integer.parseInt(st.nextToken());
+        int y2 = Integer.parseInt(st.nextToken());
 
-        for (int i = 0; i < 3; i++) {
-            x[i] = sc.nextInt();
-            y[i] = sc.nextInt();
+        st = new StringTokenizer(br.readLine());
+        int x3 = Integer.parseInt(st.nextToken());
+        int y3 = Integer.parseInt(st.nextToken());
+
+        StringBuilder sb = new StringBuilder();
+
+        if (x1 == x2) {
+            sb.append(x3);
+        } else if (x1 == x3) {
+            sb.append(x2);
+        } else {
+            sb.append(x1);
         }
 
-        int fourthX = findUnique(x[0], x[1], x[2]);
-        int fourthY = findUnique(y[0], y[1], y[2]);
+        sb.append(" ");
 
-        System.out.println(fourthX + " " + fourthY);
-    }
+        if (y1 == y2) {
+            sb.append(y3);
+        } else if (y1 == y3) {
+            sb.append(y2);
+        } else {
+            sb.append(y1);
+        }
 
-    private static int findUnique(int a, int b, int c) {
-        if (a == b) return c;
-        else if (a == c) return b;
-        else return a;
+        System.out.println(sb.toString());
     }
 }
