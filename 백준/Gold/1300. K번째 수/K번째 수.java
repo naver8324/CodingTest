@@ -1,31 +1,32 @@
 import java.io.*;
+import java.util.*;
 
 public class Main {
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        int n = Integer.parseInt(br.readLine());
+        int N = Integer.parseInt(br.readLine());
         int k = Integer.parseInt(br.readLine());
 
-        long left = 1;
-        long right = k;
-        long answer = 0;
+        int start = 1;
+        int end = k;
+        int result = 0;
 
-        while (left <= right) {
-            long mid = (left + right) / 2;
+        while (start <= end) {
+            int middle = (start + end) / 2;
+            int count = 0;
 
-            long count = 0;
-            for (int i = 1; i <= n; i++) {
-                count += Math.min(n, mid / i);
+            for (int i = 1; i <= N; i++) {
+                count += Math.min(N, middle / i);
             }
 
             if (count < k) {
-                left = mid + 1;
+                start = middle + 1;
             } else {
-                answer = mid;
-                right = mid - 1;
+                end = middle - 1;
+                result = middle;
             }
         }
 
-        System.out.println(answer);
+        System.out.println(result);
     }
 }
