@@ -7,21 +7,21 @@ public class Main {
         StringTokenizer st = new StringTokenizer(br.readLine());
         int N = Integer.parseInt(st.nextToken());
         int K = Integer.parseInt(st.nextToken());
-        int[] coin = new int[N];
-        int minCoinCount = 0;
+
+        int[] A = new int[N];
 
         for (int i = 0; i < N; i++) {
-            coin[i] = Integer.parseInt(br.readLine());
+            A[i] = Integer.parseInt(br.readLine());
         }
 
+        int result = 0;
         for (int i = N - 1; i >= 0; i--) {
-            if (coin[i] <= K) {
-                minCoinCount += K / coin[i];
-                K %= coin[i];
+            if (K >= A[i]) {
+                result += K / A[i];
+                K %= A[i];
             }
         }
 
-        System.out.print(minCoinCount);
-        br.close();
+        System.out.println(result);
     }
 }
