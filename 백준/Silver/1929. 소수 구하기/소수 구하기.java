@@ -5,30 +5,32 @@ public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
-
         int M = Integer.parseInt(st.nextToken());
         int N = Integer.parseInt(st.nextToken());
 
-        boolean[] sieve = new boolean[N + 1];
-        
-        sieve[1] = true; // 1의 소수가 아니므로 예외적을 처리
+        int[] A = new int[N + 1];
+        for (int i = 2; i <= N; i++) {
+            A[i] = i;
+        }
 
-        for (int i = 2; i * i <= N; i++) {
-            if (!sieve[i]) {
-                for (int j = i * i; j <= N; j += i) {
-                    if (!sieve[j]) {
-                        sieve[j] = true;
-                    }
-                }
+        StringBuilder sb = new StringBuilder();
+
+        for (int i = 2; i*i <= N; i++) {
+            if (A[i] == 0) {
+                continue;
+            }
+
+            for (int j = i+i; j <= N; j+=i) {
+                A[j] = 0;
             }
         }
 
         for (int i = M; i <= N; i++) {
-            if (!sieve[i]) {
-                System.out.println(i);
+            if (A[i] != 0) {
+                sb.append(A[i]).append("\n");
             }
         }
 
-        br.close();
+        System.out.print(sb.toString());
     }
 }
