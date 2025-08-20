@@ -8,20 +8,6 @@ public class Main {
         String N = st.nextToken();
         int B = Integer.parseInt(st.nextToken());
 
-        int result = 0;
-        for (int i = 0; i < N.length(); i++) {
-            char c = N.charAt(i);
-            int num = 0;
-
-            if ((int) c >= 65) {
-                num = (int) c - 'A' + 10;
-            } else {
-                num = (int) c - '0';
-            }
-
-            result = result * B + num;
-        }
-
-        System.out.println(result);
+        System.out.println(Long.parseLong(N, B));
     }
 }
