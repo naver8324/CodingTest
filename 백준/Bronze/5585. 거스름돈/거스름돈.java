@@ -1,20 +1,18 @@
-import java.util.Scanner;
+import java.io.*;
+import java.util.*;
 
 public class Main {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-
-        int price = sc.nextInt();
-        int change = 1000 - price;
-
-        int[] coins = {500, 100, 50, 10, 5, 1};
-        int count = 0;
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int change = 1000 - Integer.parseInt(br.readLine());
+        int changeCount = 0;
+        int[] coins = new int[]{500, 100, 50, 10, 5, 1};
 
         for (int coin : coins) {
-            count += change / coin;
+            changeCount += change / coin;
             change %= coin;
         }
 
-        System.out.println(count);
+        System.out.println(changeCount);
     }
 }
