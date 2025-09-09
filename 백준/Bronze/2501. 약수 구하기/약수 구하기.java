@@ -1,24 +1,26 @@
+import java.io.*;
 import java.util.*;
 
 public class Main {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        
-        int N = sc.nextInt();
-        int K = sc.nextInt();
-        
-        List<Integer> divisors = new ArrayList<>();
-        
-        for (int i = 1; i <= N; i++) {
-            if (N % i == 0) {
-                divisors.add(i);
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+
+        int n = Integer.parseInt(st.nextToken());
+        int k = Integer.parseInt(st.nextToken());
+        int result = 0;
+
+        for (int i = 1; i <= n; i++) {
+            if (n % i == 0) {
+                k--;
+
+                if (k == 0) {
+                    result = i;
+                    break;
+                }
             }
         }
-        
-        if (divisors.size() < K) {
-            System.out.println(0);
-        } else {
-            System.out.println(divisors.get(K - 1));
-        }
+
+        System.out.println(result);
     }
 }
