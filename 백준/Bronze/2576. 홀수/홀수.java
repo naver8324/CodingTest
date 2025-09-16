@@ -1,31 +1,26 @@
+import java.io.*;
 import java.util.*;
 
 public class Main {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-
-        int sum = 0;  
-        int min = Integer.MAX_VALUE;  
-        boolean hasOdd = false; 
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int sum = 0, min = Integer.MAX_VALUE;
 
         for (int i = 0; i < 7; i++) {
-            int num = sc.nextInt();
-            if (num % 2 == 1) { 
-                sum += num;
-                if (num < min) {
-                    min = num;
-                }
-                hasOdd = true;
+            int n = Integer.parseInt(br.readLine());
+            if (n % 2 == 0) {
+                continue;
             }
+
+            sum += n;
+            min = Math.min(min, n);
         }
 
-        if (!hasOdd) {
+        if (sum == 0) {
             System.out.println(-1);
-        } else {
-            System.out.println(sum);
-            System.out.println(min);
+            return;
         }
-
-        sc.close();
+        System.out.println(sum);
+        System.out.println(min);
     }
 }
