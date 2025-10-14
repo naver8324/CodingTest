@@ -1,13 +1,11 @@
-import java.util.Scanner;
+import java.io.*;
+import java.util.*;
 
 public class Main {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        String hex = sc.next();
-        sc.close();
-        
-        int decimal = Integer.parseInt(hex, 16);
-        
-        System.out.println(decimal);
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        String s = br.readLine();
+
+        System.out.println(Integer.parseInt(s, 16));
     }
 }
