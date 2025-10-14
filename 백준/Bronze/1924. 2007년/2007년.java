@@ -1,25 +1,19 @@
-import java.util.Scanner;
+import java.io.*;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.util.*;
 
 public class Main {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
 
-        int x = sc.nextInt();
-        int y = sc.nextInt();
+        int x = Integer.parseInt(st.nextToken());
+        int y = Integer.parseInt(st.nextToken());
 
-        int[] daysInMonth = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
-        String[] daysOfWeek = { "SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT" };
+        LocalDate date = LocalDate.of(2007, x, y);
+        DayOfWeek dayOfWeek = date.getDayOfWeek();
 
-        int totalDays = 0;
-
-        for (int i = 0; i < x - 1; i++) {
-            totalDays += daysInMonth[i];
-        }
-
-        totalDays += y;
-
-        int dayIndex = totalDays % 7;
-
-        System.out.println(daysOfWeek[dayIndex]);
+        System.out.println(dayOfWeek.toString().substring(0, 3));
     }
 }
