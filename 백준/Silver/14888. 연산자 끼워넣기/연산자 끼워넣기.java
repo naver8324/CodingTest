@@ -1,61 +1,62 @@
-import java.util.Scanner;
+import java.io.*;
+import java.util.*;
 
 public class Main {
     static int N;
     static int[] numbers;
-    static int[] operators = new int[4];
-    static int maxValue = Integer.MIN_VALUE;
-    static int minValue = Integer.MAX_VALUE;
+    static int[] ops;
+    static int max = Integer.MIN_VALUE;
+    static int min = Integer.MAX_VALUE;
 
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-
-        N = sc.nextInt();
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        N = Integer.parseInt(br.readLine());
         numbers = new int[N];
+        ops = new int[4];
+
+        StringTokenizer st = new StringTokenizer(br.readLine());
         for (int i = 0; i < N; i++) {
-            numbers[i] = sc.nextInt();
+            numbers[i] = Integer.parseInt(st.nextToken());
         }
+
+        st = new StringTokenizer(br.readLine());
         for (int i = 0; i < 4; i++) {
-            operators[i] = sc.nextInt();
+            ops[i] = Integer.parseInt(st.nextToken());
         }
 
-        dfs(1, numbers[0]);
+        dfs(1, numbers[0], ops[0], ops[1], ops[2], ops[3]);
 
-        System.out.println(maxValue);
-        System.out.println(minValue);
+        System.out.println(max);
+        System.out.println(min);
     }
 
-    static void dfs(int index, int current) {
-        if (index == N) {
-            maxValue = Math.max(maxValue, current);
-            minValue = Math.min(minValue, current);
+    private static void dfs(int i, int current, int plus, int minus, int mul, int div) {
+        if (i == N) {
+            max = Math.max(max, current);
+            min = Math.min(min, current);
             return;
         }
 
-        for (int i = 0; i < 4; i++) {
-            if (operators[i] > 0) {
-                operators[i]--;
+        int next = numbers[i];
 
-                if (i == 0) {
-                    dfs(index + 1, current + numbers[index]);
-                } else if (i == 1) {
-                    dfs(index + 1, current - numbers[index]);
-                } else if (i == 2) {
-                    dfs(index + 1, current * numbers[index]);
-                } else if (i == 3) {
-                    dfs(index + 1, divide(current, numbers[index]));
-                }
-
-                operators[i]++;
-            }
+        if (plus > 0) {
+            dfs(i + 1, current + next, plus - 1, minus, mul, div);
+        }
+        if (minus > 0) {
+            dfs(i + 1, current - next, plus, minus - 1, mul, div);
+        }
+        if (mul > 0) {
+            dfs(i + 1, current * next, plus, minus, mul - 1, div);
+        }
+        if (div > 0) {
+            dfs(i + 1, divde(current, next), plus, minus, mul, div - 1);
         }
     }
 
-    static int divide(int a, int b) {
+    private static int divde(int a, int b) {
         if (a < 0) {
             return -(-a / b);
-        } else {
-            return a / b;
         }
+        return a / b;
     }
 }
